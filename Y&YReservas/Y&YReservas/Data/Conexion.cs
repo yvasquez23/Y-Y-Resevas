@@ -10,7 +10,7 @@ namespace Y_YReservas.Data
 {
    public class Conexion
     {
-        public static string COnexion()
+        public static string ConnexionString()
         {
             return ConfigurationManager.ConnectionStrings["SQLserver"].ConnectionString;
         }
