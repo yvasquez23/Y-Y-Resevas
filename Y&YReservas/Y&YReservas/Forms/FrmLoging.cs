@@ -1,13 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Y_YReservas.Data;
 
 namespace Y_YReservas.Forms
@@ -22,18 +13,24 @@ namespace Y_YReservas.Forms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            progressBar1.Visible = true;
+            btnIngresar.Enabled = false;
             try
             {
                 if(Validar() == true)
                 {
+                   
                     Con.Open();
                     string query = "Select * from Usuarios where UsuarioDesc='" + txtusuario.Text + "' And contraseña='" + txtpass.Text + "'";
                     SqlCommand comando = new SqlCommand(query,Con);
                     SqlDataReader reader = comando.ExecuteReader();
                     if (reader.Read())
                     {
-                        MessageBox.Show("Bienbenido Patron");
+                        
+                        Menu menu = new Menu();
+                        menu.Show();
                         Con.Close();
+                        this.Hide();
                     }
                     else
                     {
@@ -44,6 +41,12 @@ namespace Y_YReservas.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Usuario o Clave Incorrecta" + ex.Message);
+                Con.Close();
+            }
+            finally
+            {
+                progressBar1.Visible=false;
+                btnIngresar.Enabled=true;
             }
         }
 

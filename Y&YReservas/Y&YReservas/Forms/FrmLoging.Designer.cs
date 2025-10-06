@@ -36,6 +36,7 @@
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             btnIngresar = new Button();
+            progressBar1 = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -77,6 +78,7 @@
             txtpass.Location = new Point(475, 235);
             txtpass.Multiline = true;
             txtpass.Name = "txtpass";
+            txtpass.PasswordChar = '*';
             txtpass.Size = new Size(251, 35);
             txtpass.TabIndex = 3;
             txtpass.TextAlign = HorizontalAlignment.Center;
@@ -114,11 +116,21 @@
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
             // 
+            // progressBar1
+            // 
+            progressBar1.Location = new Point(428, 366);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(326, 23);
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.TabIndex = 7;
+            progressBar1.Visible = false;
+            // 
             // FrmLoging
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(766, 444);
+            Controls.Add(progressBar1);
             Controls.Add(btnIngresar);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
@@ -127,7 +139,9 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "FrmLoging";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmLogin";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -145,5 +159,6 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Button btnIngresar;
+        private ProgressBar progressBar1;
     }
 }
