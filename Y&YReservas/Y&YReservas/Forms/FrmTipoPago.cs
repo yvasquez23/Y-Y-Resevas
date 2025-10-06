@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,36 +13,55 @@ using Y_YReservas.Data;
 
 namespace Y_YReservas.Forms
 {
-    public partial class FrmTipoServicio : Form
+    public partial class FrmTipoPago : Form
     {
-        DataTable rsTipoServicio;
-        SqlCommand cmdTipoServicio;
-        SqlDataReader reader;
-        SqlConnection Con = new SqlConnection(Conexion.ConnexionString());
-        public FrmTipoServicio()
+        DataTable rsTippoPago;
+        SqlCommand cmdTipoPago;
+
+        SqlConnection conn = new SqlConnection(Conexion.ConnexionString());
+        public FrmTipoPago()
         {
             InitializeComponent();
         }
 
-        private void FrmTipoServicio_Load(object sender, EventArgs e)
+        private void FrmTipoPago_Load(object sender, EventArgs e)
         {
             Cargando();
-
         }
 
         private void Cargando()
         {
-            string sql = "Select * From TipoServicios order by Tipo_servicio desc";
-            cmdTipoServicio = new SqlCommand(sql, Con);
-            SqlDataAdapter data = new SqlDataAdapter(cmdTipoServicio);
-            rsTipoServicio = new DataTable();
-            data.Fill(rsTipoServicio);
-            cmdTipoServicio.Dispose();
+
+            string sql = "Select * from TipoPago order by TipoPago_Desc desc";
+            cmdTipoPago = new SqlCommand(sql, conn);
+            SqlDataAdapter data = new SqlDataAdapter(cmdTipoPago);
+            rsTippoPago = new DataTable();
+            data.Fill(rsTippoPago);
+            cmdTipoPago.Dispose();
+
+
+        }
+
+        private void LimpiarCampos()
+        {
+            txtDesc.Clear();
+        }
+
+        private bool Validar()
+        {
+            if(txtDesc.Text == "")
+            {
+                MessageBox.Show("Debe digitar la Descripcion", "S&S Reservas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtDesc.Focus();
+                return false;
+            }
+
+            return true;
         }
 
         private bool VerificarSiAlgoCambio()
         {
-            if (txtTipoServicio.Text != txtTipoServicio.Tag)
+            if (txtDesc.Text != txtDesc.Tag)
             {
                 return true;
             }
@@ -51,9 +71,47 @@ namespace Y_YReservas.Forms
             }
         }
 
-        private void LimpiarCampos()
+        private void cmbbuqueda_Click(object sender, EventArgs e)
         {
-            txtTipoServicio.Clear();
+            if (franeBusqueda.Visible == false)
+            {
+                Cargando();
+                franeBusqueda.Height = 285;
+                franeBusqueda.Width = 405;
+                franeBusqueda.Visible = true;
+                txtDesc.Tag = 0;
+                //FunCancel();
+
+
+                dgvBusqueda.DataSource = rsTippoPago;
+                txtBuscar.Text = "";
+                txtBuscar.Focus();
+            }
+            else
+            {
+                franeBusqueda.Visible = false;
+
+            }
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtBuscar.Text != "")
+            {
+                rsTippoPago.DefaultView.RowFilter = $"TipoPago_Desc LIKE '%{txtBuscar.Text}%'";
+            }
+        }
+
+        private void dgvBusqueda_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            LimpiarCampos();
+
+            txtDesc.Tag = dgvBusqueda.CurrentRow.Cells[0].Value;
+            txtDesc.Text = dgvBusqueda.CurrentRow.Cells[1].Value.ToString();
+
+            franeBusqueda.Visible = false;
+            CmdBoton2.Enabled = true;
+            CmdBoton3.Enabled = true;
         }
 
         private void CmdBoton0_Click(object sender, EventArgs e)
@@ -123,29 +181,26 @@ namespace Y_YReservas.Forms
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                DialogResult Result = MessageBox.Show("Esta Seguro que desea borrar este Servicio?", "Informacion", MessageBoxButtons.YesNo);
-                
-                if (Result == DialogResult.Yes)
+                DialogResult Result = MessageBox.Show("Esta seguro que desea borrar este tipo de pago?", "Informacion", MessageBoxButtons.YesNo);
+                if(Result == DialogResult.Yes)
                 {
-                    Con.Open();
-                    string sql = "delete from TipoServicios where TipoServicio_ID=" +(Int32)txtTipoServicio.Tag;
-                    SqlCommand comando = new SqlCommand(sql, Con);
-                    comando.ExecuteNonQuery();
-                    Con.Close();
-                    LimpiarCampos();
+                    conn.Open();
+                    string sql = "delete from TipoPago where TipoPago_ID="+ (Int32)txtDesc.Tag;
+                    cmdTipoPago = new SqlCommand(sql,conn);
+                    cmdTipoPago.ExecuteNonQuery();
+                    conn.Close();
                     Cargando();
+                    LimpiarCampos();
                     return true;
                 }
-                else
-                {
-                    return false;
-                    
-                }
+
+                return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                MessageBox.Show("Error: " + ex.Message, "Y&Y Reservas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
             finally
             {
@@ -157,18 +212,18 @@ namespace Y_YReservas.Forms
         {
             CmdBoton1.Enabled = true;
 
-            txtTipoServicio.Focus();
+            txtDesc.Focus();
             return true;
         }
 
         private bool FunCancel()
         {
-           if(Convert.ToInt32(txtTipoServicio.Tag) != 0)
+            if (Convert.ToInt32(txtDesc.Tag) != 0)
             {
-                if(VerificarSiAlgoCambio() == true)
+                if (VerificarSiAlgoCambio() == true)
                 {
                     DialogResult Result = MessageBox.Show("Se han realizado Cambios que no han sido guardados", "Informacion", MessageBoxButtons.YesNo);
-                    if(Result == DialogResult.No)
+                    if (Result == DialogResult.No)
                     {
                         return false;
                     }
@@ -187,25 +242,26 @@ namespace Y_YReservas.Forms
 
                 if(Validar() == true)
                 {
-                    if((Int32)txtTipoServicio.Tag == 0)
+                    if((Int32)txtDesc.Tag == 0)
                     {
-                        Con.Open();
-                        string sql = "Insert into TipoServicios(Tipo_servicio) values('" + txtTipoServicio.Text + "')";
-                        SqlCommand comondo = new SqlCommand (sql,Con);
-                        comondo.ExecuteNonQuery();
-                        Con.Close();
+                        conn.Open();
+                        string sql = "insert into TipoPago(TipoPago_Desc) values('" + txtDesc.Text + "')";
+                        cmdTipoPago = new SqlCommand(sql, conn);
+                        cmdTipoPago.ExecuteNonQuery();
+                        conn.Close();
+
                     }
                     else
                     {
-                        Con.Open();
-                        string sql = "update TipoServicios set Tipo_servicio='" + txtTipoServicio.Text + "' where TipoServicio_ID='" + Convert.ToInt32(txtTipoServicio.Tag) + "'";
-                        SqlCommand comondo = new SqlCommand ( sql,Con);
-                        comondo.ExecuteNonQuery();  
-                        Con.Close();
+                        conn.Open();
+                        string swl = "update TipoPago set TipoPago_Desc='" + txtDesc.Text + "' where TipoPago_iD='"+ Convert.ToInt32(txtDesc.Tag)+ "'";
+                        cmdTipoPago = new SqlCommand(swl, conn);
+                        cmdTipoPago.ExecuteNonQuery();
+                        conn.Close();
 
                     }
 
-                    txtTipoServicio.Tag = 0;
+                    txtDesc.Tag = 0;
                     LimpiarCampos();
                     Cargando();
 
@@ -218,86 +274,23 @@ namespace Y_YReservas.Forms
             }
             catch (Exception ex)
             {
+
+
                 MessageBox.Show("Error: " + ex.Message, "Y&Y Reservas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                this.Cursor= Cursors.Default;
             }
         }
 
         private bool FunAddNew()
         {
-            txtTipoServicio.Tag = 0;
+            txtDesc.Tag = 0;
             LimpiarCampos();
-            txtTipoServicio.Focus();
+            txtDesc.Focus();
             return true;
-        }
-
-        private void cmbbuqueda_Click(object sender, EventArgs e)
-        {
-            if (frameBusqueda.Visible == false)
-            {
-                Cargando();
-                frameBusqueda.Height = 218;
-                frameBusqueda.Width = 345;
-                frameBusqueda.Visible = true;
-                txtTipoServicio.Tag = 0;
-                //FunCancel();
-
-
-                dgvTipoServicio.DataSource = rsTipoServicio;
-                txtbusqueda.Text = "";
-                txtbusqueda.Focus();
-            }
-            else
-            {
-                frameBusqueda.Visible = false;
-
-            }
-
-        }
-
-        private void txtbusqueda_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (txtbusqueda.Text != "")
-            {
-                rsTipoServicio.DefaultView.RowFilter = $"Tipo_servicio LIKE '%{txtbusqueda.Text}%'";
-
-            }
-        }
-
-        private void dgvTipoServicio_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            LimpiarCampos();
-
-            txtTipoServicio.Tag = dgvTipoServicio.CurrentRow.Cells[0].Value;
-            txtTipoServicio.Text = dgvTipoServicio.CurrentRow.Cells[1].Value.ToString();
-
-            frameBusqueda.Visible = false;
-            CmdBoton2.Enabled = true;
-            CmdBoton3.Enabled = true;
-
-
-        }
-
-        private bool Validar()
-        {
-
-            if (txtTipoServicio.Text == "")
-            {
-                MessageBox.Show("Debe digitar la Descripcion", "S&S Reservas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtTipoServicio.Focus();
-                return false;
-            }
-
-
-            return true;
-
         }
     }
-
-
-
 }

@@ -217,7 +217,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuHighlight;
-            ClientSize = new Size(420, 328);
+            ClientSize = new Size(440, 344);
             Controls.Add(CmdBoton3);
             Controls.Add(CmdBoton2);
             Controls.Add(CmdBoton1);

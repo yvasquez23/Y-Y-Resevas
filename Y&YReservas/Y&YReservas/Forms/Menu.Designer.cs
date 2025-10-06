@@ -35,6 +35,7 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripSeparator4 = new ToolStripSeparator();
             toolStripSeparator5 = new ToolStripSeparator();
+            tipoServicioToolStripMenuItem = new ToolStripMenuItem();
             editMenu = new ToolStripMenuItem();
             undoToolStripMenuItem = new ToolStripMenuItem();
             redoToolStripMenuItem = new ToolStripMenuItem();
@@ -52,7 +53,7 @@
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            tipoServicioToolStripMenuItem = new ToolStripMenuItem();
+            tipoPagoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -70,7 +71,7 @@
             // 
             // fileMenu
             // 
-            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem });
+            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem, tipoPagoToolStripMenuItem });
             fileMenu.ImageTransparentColor = SystemColors.ActiveBorder;
             fileMenu.Name = "fileMenu";
             fileMenu.Size = new Size(101, 20);
@@ -91,6 +92,13 @@
             toolStripSeparator5.Name = "toolStripSeparator5";
             toolStripSeparator5.Size = new Size(177, 6);
             // 
+            // tipoServicioToolStripMenuItem
+            // 
+            tipoServicioToolStripMenuItem.Name = "tipoServicioToolStripMenuItem";
+            tipoServicioToolStripMenuItem.Size = new Size(180, 22);
+            tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
+            tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
+            // 
             // editMenu
             // 
             editMenu.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem, toolStripSeparator6, cutToolStripMenuItem, copyToolStripMenuItem, pasteToolStripMenuItem, toolStripSeparator7, selectAllToolStripMenuItem });
@@ -104,7 +112,7 @@
             undoToolStripMenuItem.ImageTransparentColor = Color.Black;
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(180, 22);
+            undoToolStripMenuItem.Size = new Size(164, 22);
             undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
@@ -113,13 +121,13 @@
             redoToolStripMenuItem.ImageTransparentColor = Color.Black;
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoToolStripMenuItem.Size = new Size(180, 22);
+            redoToolStripMenuItem.Size = new Size(164, 22);
             redoToolStripMenuItem.Text = "&Redo";
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(177, 6);
+            toolStripSeparator6.Size = new Size(161, 6);
             // 
             // cutToolStripMenuItem
             // 
@@ -127,7 +135,7 @@
             cutToolStripMenuItem.ImageTransparentColor = Color.Black;
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            cutToolStripMenuItem.Size = new Size(180, 22);
+            cutToolStripMenuItem.Size = new Size(164, 22);
             cutToolStripMenuItem.Text = "Cu&t";
             cutToolStripMenuItem.Click += CutToolStripMenuItem_Click;
             // 
@@ -137,7 +145,7 @@
             copyToolStripMenuItem.ImageTransparentColor = Color.Black;
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyToolStripMenuItem.Size = new Size(180, 22);
+            copyToolStripMenuItem.Size = new Size(164, 22);
             copyToolStripMenuItem.Text = "&Copy";
             copyToolStripMenuItem.Click += CopyToolStripMenuItem_Click;
             // 
@@ -147,20 +155,20 @@
             pasteToolStripMenuItem.ImageTransparentColor = Color.Black;
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(180, 22);
+            pasteToolStripMenuItem.Size = new Size(164, 22);
             pasteToolStripMenuItem.Text = "&Paste";
             pasteToolStripMenuItem.Click += PasteToolStripMenuItem_Click;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(177, 6);
+            toolStripSeparator7.Size = new Size(161, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             selectAllToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            selectAllToolStripMenuItem.Size = new Size(180, 22);
+            selectAllToolStripMenuItem.Size = new Size(164, 22);
             selectAllToolStripMenuItem.Text = "Select &All";
             // 
             // viewMenu
@@ -176,7 +184,7 @@
             toolBarToolStripMenuItem.CheckOnClick = true;
             toolBarToolStripMenuItem.CheckState = CheckState.Checked;
             toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
-            toolBarToolStripMenuItem.Size = new Size(180, 22);
+            toolBarToolStripMenuItem.Size = new Size(126, 22);
             toolBarToolStripMenuItem.Text = "&Toolbar";
             toolBarToolStripMenuItem.Click += ToolBarToolStripMenuItem_Click;
             // 
@@ -186,7 +194,7 @@
             statusBarToolStripMenuItem.CheckOnClick = true;
             statusBarToolStripMenuItem.CheckState = CheckState.Checked;
             statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-            statusBarToolStripMenuItem.Size = new Size(180, 22);
+            statusBarToolStripMenuItem.Size = new Size(126, 22);
             statusBarToolStripMenuItem.Text = "&Status Bar";
             statusBarToolStripMenuItem.Click += StatusBarToolStripMenuItem_Click;
             // 
@@ -220,12 +228,12 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
-            // tipoServicioToolStripMenuItem
+            // tipoPagoToolStripMenuItem
             // 
-            tipoServicioToolStripMenuItem.Name = "tipoServicioToolStripMenuItem";
-            tipoServicioToolStripMenuItem.Size = new Size(180, 22);
-            tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
-            tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
+            tipoPagoToolStripMenuItem.Name = "tipoPagoToolStripMenuItem";
+            tipoPagoToolStripMenuItem.Size = new Size(180, 22);
+            tipoPagoToolStripMenuItem.Text = "Tipo Pago";
+            tipoPagoToolStripMenuItem.Click += tipoPagoToolStripMenuItem_Click;
             // 
             // Menu
             // 
@@ -279,6 +287,7 @@
         private System.Windows.Forms.ToolStripMenuItem statusBarToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
         private ToolStripMenuItem tipoServicioToolStripMenuItem;
+        private ToolStripMenuItem tipoPagoToolStripMenuItem;
     }
 }
 
