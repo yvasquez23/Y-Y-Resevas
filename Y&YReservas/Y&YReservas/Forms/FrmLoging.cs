@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.ComponentModel.Design;
 using Y_YReservas.Data;
 
 namespace Y_YReservas.Forms
@@ -30,6 +31,7 @@ namespace Y_YReservas.Forms
                         Menu menu = new Menu();
                         menu.Show();
                         Con.Close();
+                    
                         this.Hide();
                     }
                     else

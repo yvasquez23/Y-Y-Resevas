@@ -103,5 +103,11 @@ namespace Y_YReservas.Forms
                 childForm.Close();
             }
         }
+
+        private void tipoServicioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmTipoServicio Tipo_Servicio = new FrmTipoServicio();
+            Tipo_Servicio.ShowDialog();
+        }
     }
 }

@@ -225,6 +225,7 @@
             tipoServicioToolStripMenuItem.Name = "tipoServicioToolStripMenuItem";
             tipoServicioToolStripMenuItem.Size = new Size(180, 22);
             tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
+            tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
             // 
             // Menu
             // 
