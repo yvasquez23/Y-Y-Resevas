@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Reporting.NETCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,30 @@ namespace Y_YReservas.Forms
         {
             Cargando();
 
+            
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string rutaReporte = @"C:\Reportes\MiReporte.rdlc";
+
+            // Crear el DataTable (necesario aunque sea vacío, si el RDLC espera un dataset)
+            DataTable dt = new DataTable("DataSet1"); // el nombre debe coincidir con el del RDLC
+
+            // Configurar el visor
+            reportViewer1.ProcessingMode = ProcessingMode.Local;
+            reportViewer1.LocalReport.ReportPath = rutaReporte;
+
+            // Limpiar fuentes previas
+            reportViewer1.LocalReport.DataSources.Clear();
+
+            // Agregar la fuente de datos (aunque esté vacía)
+            ReportDataSource rds = new ReportDataSource("DataSet1", dt);
+            reportViewer1.LocalReport.DataSources.Add(rds);
+
+            // Refrescar para mostrar
+            reportViewer1.RefreshReport();
         }
 
         private void Cargando()
