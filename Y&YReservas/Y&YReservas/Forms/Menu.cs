@@ -115,5 +115,11 @@ namespace Y_YReservas.Forms
             FrmTipoPago frmTipoPago = new FrmTipoPago();
             frmTipoPago.ShowDialog();
         }
+
+        private void serviciosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmServicios servicios = new FrmServicios();
+            servicios.ShowDialog();
+        }
     }
 }

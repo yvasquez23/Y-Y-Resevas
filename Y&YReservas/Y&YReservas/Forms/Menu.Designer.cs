@@ -36,6 +36,7 @@
             toolStripSeparator4 = new ToolStripSeparator();
             toolStripSeparator5 = new ToolStripSeparator();
             tipoServicioToolStripMenuItem = new ToolStripMenuItem();
+            tipoPagoToolStripMenuItem = new ToolStripMenuItem();
             editMenu = new ToolStripMenuItem();
             undoToolStripMenuItem = new ToolStripMenuItem();
             redoToolStripMenuItem = new ToolStripMenuItem();
@@ -53,7 +54,7 @@
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            tipoPagoToolStripMenuItem = new ToolStripMenuItem();
+            serviciosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             // fileMenu
             // 
-            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem, tipoPagoToolStripMenuItem });
+            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem, tipoPagoToolStripMenuItem, serviciosToolStripMenuItem });
             fileMenu.ImageTransparentColor = SystemColors.ActiveBorder;
             fileMenu.Name = "fileMenu";
             fileMenu.Size = new Size(101, 20);
@@ -98,6 +99,13 @@
             tipoServicioToolStripMenuItem.Size = new Size(180, 22);
             tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
             tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
+            // 
+            // tipoPagoToolStripMenuItem
+            // 
+            tipoPagoToolStripMenuItem.Name = "tipoPagoToolStripMenuItem";
+            tipoPagoToolStripMenuItem.Size = new Size(180, 22);
+            tipoPagoToolStripMenuItem.Text = "Tipo Pago";
+            tipoPagoToolStripMenuItem.Click += tipoPagoToolStripMenuItem_Click;
             // 
             // editMenu
             // 
@@ -228,12 +236,12 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
-            // tipoPagoToolStripMenuItem
+            // serviciosToolStripMenuItem
             // 
-            tipoPagoToolStripMenuItem.Name = "tipoPagoToolStripMenuItem";
-            tipoPagoToolStripMenuItem.Size = new Size(180, 22);
-            tipoPagoToolStripMenuItem.Text = "Tipo Pago";
-            tipoPagoToolStripMenuItem.Click += tipoPagoToolStripMenuItem_Click;
+            serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
+            serviciosToolStripMenuItem.Size = new Size(180, 22);
+            serviciosToolStripMenuItem.Text = "Servicios";
+            serviciosToolStripMenuItem.Click += serviciosToolStripMenuItem_Click;
             // 
             // Menu
             // 
@@ -288,6 +296,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private ToolStripMenuItem tipoServicioToolStripMenuItem;
         private ToolStripMenuItem tipoPagoToolStripMenuItem;
+        private ToolStripMenuItem serviciosToolStripMenuItem;
     }
 }
 

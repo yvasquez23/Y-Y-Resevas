@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Reporting.NETCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,45 +7,62 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using Y_YReservas.Data;
 
 namespace Y_YReservas.Forms
 {
-    public partial class FrmTipoServicio : Form
+    public partial class FrmServicios : Form
     {
-        DataTable rsTipoServicio;
-        SqlCommand cmdTipoServicio;
-        SqlDataReader reader;
-        SqlConnection Con = new SqlConnection(Conexion.ConnexionString());
-        public FrmTipoServicio()
+
+        DataTable rsServicios;
+        DataTable rsTipoServicios;
+        SqlCommand cmdTipoServicios;
+        SqlCommand cmdServicios;
+        SqlConnection conn = new SqlConnection(Conexion.ConnexionString());
+
+        public FrmServicios()
         {
             InitializeComponent();
         }
 
-        private void FrmTipoServicio_Load(object sender, EventArgs e)
+        private void FrmServicios_Load(object sender, EventArgs e)
         {
             Cargando();
-
-            
-
+            LimpiarCAmpos();
         }
+
 
         private void Cargando()
         {
-            string sql = "Select * From TipoServicios order by Tipo_servicio desc";
-            cmdTipoServicio = new SqlCommand(sql, Con);
-            SqlDataAdapter data = new SqlDataAdapter(cmdTipoServicio);
-            rsTipoServicio = new DataTable();
-            data.Fill(rsTipoServicio);
-            cmdTipoServicio.Dispose();
+            string sql = "Select * from Servicios order by 1 desc";
+            cmdServicios = new SqlCommand(sql, conn);
+            SqlDataAdapter data = new SqlDataAdapter(cmdServicios);
+            rsServicios = new DataTable();
+            data.Fill(rsServicios);
+            cmdServicios.Dispose();
+
+            string sql1 = "Select * from TipoServicios";
+            cmdTipoServicios = new SqlCommand(sql1, conn);
+            SqlDataAdapter comando = new SqlDataAdapter(cmdTipoServicios);
+            rsTipoServicios = new DataTable();
+            comando.Fill(rsTipoServicios);
+            cmbTipoServicio.DataSource = rsTipoServicios;
+            cmbTipoServicio.DisplayMember = "Tipo_servicio";
+            cmbTipoServicio.ValueMember = "TipoServicio_ID";
+
+
+
         }
 
-        private bool VerificarSiAlgoCambio()
+
+        private bool VerifiacrSiAlgoCambio()
         {
-            if (txtTipoServicio.Text != txtTipoServicio.Tag)
+            if (txtNombre.Text != txtNombre.Tag)
             {
                 return true;
+
             }
             else
             {
@@ -54,9 +70,65 @@ namespace Y_YReservas.Forms
             }
         }
 
-        private void LimpiarCampos()
+
+        private void LimpiarCAmpos()
         {
-            txtTipoServicio.Clear();
+            txtNombre.Clear();
+            cmbTipoServicio.SelectedIndex = 0;
+            txtPrecio.Clear();
+        }
+
+
+        private void cmbbuqueda_Click(object sender, EventArgs e)
+        {
+            if (frameBusqueda.Visible == false)
+            {
+                Cargando();
+                frameBusqueda.Height = 133;
+                frameBusqueda.Width = 393;
+                frameBusqueda.Visible = true;
+                txtNombre.Tag = 0;
+                //FunCancel();
+
+
+                dataGridView1.DataSource = rsServicios;
+                textBox1.Text = "";
+                textBox1.Focus();
+            }
+            else
+            {
+                frameBusqueda.Visible = false;
+
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            LimpiarCAmpos();
+
+            txtNombre.Tag = dataGridView1.CurrentRow.Cells[0].Value;
+            txtNombre.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+
+            cmbTipoServicio.SelectedValue = dataGridView1.CurrentRow.Cells[2].Value;
+            cmbTipoServicio.Tag = dataGridView1.CurrentRow.Cells[2].Value;
+
+            txtPrecio.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            txtPrecio.Tag = dataGridView1.CurrentRow.Cells[3].Value;
+
+
+
+            frameBusqueda.Visible = false;
+            CmdBoton2.Enabled = true;
+            CmdBoton3.Enabled = true;
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (textBox1.Text != "")
+            {
+               rsTipoServicios.DefaultView.RowFilter = $"Tipo_servicio LIKE '%{textBox1.Text}%'";
+
+            }
         }
 
         private void CmdBoton0_Click(object sender, EventArgs e)
@@ -127,25 +199,25 @@ namespace Y_YReservas.Forms
             {
                 this.Cursor = Cursors.WaitCursor;
                 DialogResult Result = MessageBox.Show("Esta Seguro que desea borrar este Servicio?", "Informacion", MessageBoxButtons.YesNo);
-                
+
                 if (Result == DialogResult.Yes)
                 {
-                    Con.Open();
-                    string sql = "delete from TipoServicios where TipoServicio_ID=" +(Int32)txtTipoServicio.Tag;
-                    SqlCommand comando = new SqlCommand(sql, Con);
+                    conn.Open();
+                    string sql = "delete from Servicios where Servicio_ID=" + (Int32)txtNombre.Tag;
+                    SqlCommand comando = new SqlCommand(sql, conn);
                     comando.ExecuteNonQuery();
-                    Con.Close();
-                    LimpiarCampos();
+                    conn.Close();
+                    LimpiarCAmpos();
                     Cargando();
                     return true;
                 }
                 else
                 {
                     return false;
-                    
+
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -160,18 +232,18 @@ namespace Y_YReservas.Forms
         {
             CmdBoton1.Enabled = true;
 
-            txtTipoServicio.Focus();
+            txtNombre.Focus();
             return true;
         }
 
         private bool FunCancel()
         {
-           if(Convert.ToInt32(txtTipoServicio.Tag) != 0)
+            if (Convert.ToInt32(txtNombre.Tag) != 0)
             {
-                if(VerificarSiAlgoCambio() == true)
+                if (VerifiacrSiAlgoCambio() == true)
                 {
                     DialogResult Result = MessageBox.Show("Se han realizado Cambios que no han sido guardados", "Informacion", MessageBoxButtons.YesNo);
-                    if(Result == DialogResult.No)
+                    if (Result == DialogResult.No)
                     {
                         return false;
                     }
@@ -187,29 +259,28 @@ namespace Y_YReservas.Forms
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-
-                if(Validar() == true)
+                if(Validate() == true)
                 {
-                    if((Int32)txtTipoServicio.Tag == 0)
+                    if((Int32)txtNombre.Tag == 0)
                     {
-                        Con.Open();
-                        string sql = "Insert into TipoServicios(Tipo_servicio) values('" + txtTipoServicio.Text + "')";
-                        SqlCommand comondo = new SqlCommand (sql,Con);
-                        comondo.ExecuteNonQuery();
-                        Con.Close();
+                        conn.Open();
+                        string sql = "Insert into Servicios(Servicio_Nombre,TipoServicio_ID,Precio_Servicios) values('" + txtNombre.Text + "','" + Convert.ToInt32(cmbTipoServicio.SelectedValue) + "','" + Convert.ToDecimal(txtPrecio.Text) + "')";
+                        cmdServicios = new SqlCommand(sql, conn);
+                        cmdServicios.ExecuteNonQuery();
+                        conn.Close();
+
                     }
                     else
                     {
-                        Con.Open();
-                        string sql = "update TipoServicios set Tipo_servicio='" + txtTipoServicio.Text + "' where TipoServicio_ID='" + Convert.ToInt32(txtTipoServicio.Tag) + "'";
-                        SqlCommand comondo = new SqlCommand ( sql,Con);
-                        comondo.ExecuteNonQuery();  
-                        Con.Close();
-
+                        conn.Open();
+                        string sql = "update Servicios set Servicio_Nombre='" + txtNombre.Text + "',TipoServicio_ID='" + Convert.ToInt32(cmbTipoServicio.SelectedValue) + "',Precio_Servicios='" + Convert.ToDecimal(txtPrecio.Text) + "' where Servicio_ID='"+Convert.ToInt32(txtNombre.Tag)+"'";
+                        cmdServicios = new SqlCommand( sql, conn);
+                        cmdServicios.ExecuteNonQuery();
+                        conn.Close();
                     }
 
-                    txtTipoServicio.Tag = 0;
-                    LimpiarCampos();
+                    txtNombre.Tag = 0;
+                    LimpiarCAmpos();
                     Cargando();
 
                     return true;
@@ -221,6 +292,7 @@ namespace Y_YReservas.Forms
             }
             catch (Exception ex)
             {
+
                 MessageBox.Show("Error: " + ex.Message, "Y&Y Reservas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -232,75 +304,10 @@ namespace Y_YReservas.Forms
 
         private bool FunAddNew()
         {
-            txtTipoServicio.Tag = 0;
-            LimpiarCampos();
-            txtTipoServicio.Focus();
+            txtNombre.Tag = 0;
+            LimpiarCAmpos();
+            txtNombre.Focus();
             return true;
-        }
-
-        private void cmbbuqueda_Click(object sender, EventArgs e)
-        {
-            if (frameBusqueda.Visible == false)
-            {
-                Cargando();
-                frameBusqueda.Height = 218;
-                frameBusqueda.Width = 345;
-                frameBusqueda.Visible = true;
-                txtTipoServicio.Tag = 0;
-                //FunCancel();
-
-
-                dgvTipoServicio.DataSource = rsTipoServicio;
-                txtbusqueda.Text = "";
-                txtbusqueda.Focus();
-            }
-            else
-            {
-                frameBusqueda.Visible = false;
-
-            }
-
-        }
-
-        private void txtbusqueda_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (txtbusqueda.Text != "")
-            {
-                rsTipoServicio.DefaultView.RowFilter = $"Tipo_servicio LIKE '%{txtbusqueda.Text}%'";
-
-            }
-        }
-
-        private void dgvTipoServicio_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            LimpiarCampos();
-
-            txtTipoServicio.Tag = dgvTipoServicio.CurrentRow.Cells[0].Value;
-            txtTipoServicio.Text = dgvTipoServicio.CurrentRow.Cells[1].Value.ToString();
-
-            frameBusqueda.Visible = false;
-            CmdBoton2.Enabled = true;
-            CmdBoton3.Enabled = true;
-
-
-        }
-
-        private bool Validar()
-        {
-
-            if (txtTipoServicio.Text == "")
-            {
-                MessageBox.Show("Debe digitar la Descripcion", "S&S Reservas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtTipoServicio.Focus();
-                return false;
-            }
-
-
-            return true;
-
         }
     }
-
-
-
 }
