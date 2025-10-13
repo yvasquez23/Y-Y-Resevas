@@ -37,15 +37,10 @@
             toolStripSeparator5 = new ToolStripSeparator();
             tipoServicioToolStripMenuItem = new ToolStripMenuItem();
             tipoPagoToolStripMenuItem = new ToolStripMenuItem();
+            serviciosToolStripMenuItem = new ToolStripMenuItem();
             editMenu = new ToolStripMenuItem();
-            undoToolStripMenuItem = new ToolStripMenuItem();
-            redoToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator6 = new ToolStripSeparator();
-            cutToolStripMenuItem = new ToolStripMenuItem();
-            copyToolStripMenuItem = new ToolStripMenuItem();
-            pasteToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator7 = new ToolStripSeparator();
-            selectAllToolStripMenuItem = new ToolStripMenuItem();
             viewMenu = new ToolStripMenuItem();
             toolBarToolStripMenuItem = new ToolStripMenuItem();
             statusBarToolStripMenuItem = new ToolStripMenuItem();
@@ -54,7 +49,7 @@
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            serviciosToolStripMenuItem = new ToolStripMenuItem();
+            reservasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -81,103 +76,55 @@
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(177, 6);
+            toolStripSeparator3.Size = new Size(139, 6);
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(177, 6);
+            toolStripSeparator4.Size = new Size(139, 6);
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(177, 6);
+            toolStripSeparator5.Size = new Size(139, 6);
             // 
             // tipoServicioToolStripMenuItem
             // 
             tipoServicioToolStripMenuItem.Name = "tipoServicioToolStripMenuItem";
-            tipoServicioToolStripMenuItem.Size = new Size(180, 22);
+            tipoServicioToolStripMenuItem.Size = new Size(142, 22);
             tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
             tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
             // 
             // tipoPagoToolStripMenuItem
             // 
             tipoPagoToolStripMenuItem.Name = "tipoPagoToolStripMenuItem";
-            tipoPagoToolStripMenuItem.Size = new Size(180, 22);
+            tipoPagoToolStripMenuItem.Size = new Size(142, 22);
             tipoPagoToolStripMenuItem.Text = "Tipo Pago";
             tipoPagoToolStripMenuItem.Click += tipoPagoToolStripMenuItem_Click;
             // 
+            // serviciosToolStripMenuItem
+            // 
+            serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
+            serviciosToolStripMenuItem.Size = new Size(142, 22);
+            serviciosToolStripMenuItem.Text = "Servicios";
+            serviciosToolStripMenuItem.Click += serviciosToolStripMenuItem_Click;
+            // 
             // editMenu
             // 
-            editMenu.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem, toolStripSeparator6, cutToolStripMenuItem, copyToolStripMenuItem, pasteToolStripMenuItem, toolStripSeparator7, selectAllToolStripMenuItem });
+            editMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator6, toolStripSeparator7, reservasToolStripMenuItem });
             editMenu.Name = "editMenu";
             editMenu.Size = new Size(61, 20);
             editMenu.Text = "&Proceso";
             // 
-            // undoToolStripMenuItem
-            // 
-            undoToolStripMenuItem.Image = (Image)resources.GetObject("undoToolStripMenuItem.Image");
-            undoToolStripMenuItem.ImageTransparentColor = Color.Black;
-            undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(164, 22);
-            undoToolStripMenuItem.Text = "&Undo";
-            // 
-            // redoToolStripMenuItem
-            // 
-            redoToolStripMenuItem.Image = (Image)resources.GetObject("redoToolStripMenuItem.Image");
-            redoToolStripMenuItem.ImageTransparentColor = Color.Black;
-            redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoToolStripMenuItem.Size = new Size(164, 22);
-            redoToolStripMenuItem.Text = "&Redo";
-            // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(161, 6);
-            // 
-            // cutToolStripMenuItem
-            // 
-            cutToolStripMenuItem.Image = (Image)resources.GetObject("cutToolStripMenuItem.Image");
-            cutToolStripMenuItem.ImageTransparentColor = Color.Black;
-            cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            cutToolStripMenuItem.Size = new Size(164, 22);
-            cutToolStripMenuItem.Text = "Cu&t";
-            cutToolStripMenuItem.Click += CutToolStripMenuItem_Click;
-            // 
-            // copyToolStripMenuItem
-            // 
-            copyToolStripMenuItem.Image = (Image)resources.GetObject("copyToolStripMenuItem.Image");
-            copyToolStripMenuItem.ImageTransparentColor = Color.Black;
-            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyToolStripMenuItem.Size = new Size(164, 22);
-            copyToolStripMenuItem.Text = "&Copy";
-            copyToolStripMenuItem.Click += CopyToolStripMenuItem_Click;
-            // 
-            // pasteToolStripMenuItem
-            // 
-            pasteToolStripMenuItem.Image = (Image)resources.GetObject("pasteToolStripMenuItem.Image");
-            pasteToolStripMenuItem.ImageTransparentColor = Color.Black;
-            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(164, 22);
-            pasteToolStripMenuItem.Text = "&Paste";
-            pasteToolStripMenuItem.Click += PasteToolStripMenuItem_Click;
+            toolStripSeparator6.Size = new Size(177, 6);
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(161, 6);
-            // 
-            // selectAllToolStripMenuItem
-            // 
-            selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            selectAllToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            selectAllToolStripMenuItem.Size = new Size(164, 22);
-            selectAllToolStripMenuItem.Text = "Select &All";
+            toolStripSeparator7.Size = new Size(177, 6);
             // 
             // viewMenu
             // 
@@ -236,17 +183,18 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
-            // serviciosToolStripMenuItem
+            // reservasToolStripMenuItem
             // 
-            serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
-            serviciosToolStripMenuItem.Size = new Size(180, 22);
-            serviciosToolStripMenuItem.Text = "Servicios";
-            serviciosToolStripMenuItem.Click += serviciosToolStripMenuItem_Click;
+            reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            reservasToolStripMenuItem.Size = new Size(180, 22);
+            reservasToolStripMenuItem.Text = "Reservas";
+            reservasToolStripMenuItem.Click += reservasToolStripMenuItem_Click;
             // 
             // Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(1458, 667);
@@ -284,12 +232,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
         private System.Windows.Forms.ToolStripMenuItem editMenu;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewMenu;
         private System.Windows.Forms.ToolStripMenuItem toolBarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statusBarToolStripMenuItem;
@@ -297,6 +239,7 @@
         private ToolStripMenuItem tipoServicioToolStripMenuItem;
         private ToolStripMenuItem tipoPagoToolStripMenuItem;
         private ToolStripMenuItem serviciosToolStripMenuItem;
+        private ToolStripMenuItem reservasToolStripMenuItem;
     }
 }
 

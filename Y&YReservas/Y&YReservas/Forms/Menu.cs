@@ -121,5 +121,11 @@ namespace Y_YReservas.Forms
             FrmServicios servicios = new FrmServicios();
             servicios.ShowDialog();
         }
+
+        private void reservasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReservas reservas = new FrmReservas();
+            reservas.ShowDialog();
+        }
     }
 }
