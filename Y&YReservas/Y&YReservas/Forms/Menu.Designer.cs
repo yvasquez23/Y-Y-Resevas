@@ -41,6 +41,7 @@
             editMenu = new ToolStripMenuItem();
             toolStripSeparator6 = new ToolStripSeparator();
             toolStripSeparator7 = new ToolStripSeparator();
+            reservasToolStripMenuItem = new ToolStripMenuItem();
             viewMenu = new ToolStripMenuItem();
             toolBarToolStripMenuItem = new ToolStripMenuItem();
             statusBarToolStripMenuItem = new ToolStripMenuItem();
@@ -49,7 +50,7 @@
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            reservasToolStripMenuItem = new ToolStripMenuItem();
+            clientesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -67,7 +68,7 @@
             // 
             // fileMenu
             // 
-            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem, tipoPagoToolStripMenuItem, serviciosToolStripMenuItem });
+            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, toolStripSeparator4, toolStripSeparator5, tipoServicioToolStripMenuItem, tipoPagoToolStripMenuItem, serviciosToolStripMenuItem, clientesToolStripMenuItem });
             fileMenu.ImageTransparentColor = SystemColors.ActiveBorder;
             fileMenu.Name = "fileMenu";
             fileMenu.Size = new Size(101, 20);
@@ -76,36 +77,36 @@
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(139, 6);
+            toolStripSeparator3.Size = new Size(177, 6);
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(139, 6);
+            toolStripSeparator4.Size = new Size(177, 6);
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(139, 6);
+            toolStripSeparator5.Size = new Size(177, 6);
             // 
             // tipoServicioToolStripMenuItem
             // 
             tipoServicioToolStripMenuItem.Name = "tipoServicioToolStripMenuItem";
-            tipoServicioToolStripMenuItem.Size = new Size(142, 22);
+            tipoServicioToolStripMenuItem.Size = new Size(180, 22);
             tipoServicioToolStripMenuItem.Text = "Tipo Servicio";
             tipoServicioToolStripMenuItem.Click += tipoServicioToolStripMenuItem_Click;
             // 
             // tipoPagoToolStripMenuItem
             // 
             tipoPagoToolStripMenuItem.Name = "tipoPagoToolStripMenuItem";
-            tipoPagoToolStripMenuItem.Size = new Size(142, 22);
+            tipoPagoToolStripMenuItem.Size = new Size(180, 22);
             tipoPagoToolStripMenuItem.Text = "Tipo Pago";
             tipoPagoToolStripMenuItem.Click += tipoPagoToolStripMenuItem_Click;
             // 
             // serviciosToolStripMenuItem
             // 
             serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
-            serviciosToolStripMenuItem.Size = new Size(142, 22);
+            serviciosToolStripMenuItem.Size = new Size(180, 22);
             serviciosToolStripMenuItem.Text = "Servicios";
             serviciosToolStripMenuItem.Click += serviciosToolStripMenuItem_Click;
             // 
@@ -119,12 +120,19 @@
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(177, 6);
+            toolStripSeparator6.Size = new Size(116, 6);
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(177, 6);
+            toolStripSeparator7.Size = new Size(116, 6);
+            // 
+            // reservasToolStripMenuItem
+            // 
+            reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            reservasToolStripMenuItem.Size = new Size(119, 22);
+            reservasToolStripMenuItem.Text = "Reservas";
+            reservasToolStripMenuItem.Click += reservasToolStripMenuItem_Click;
             // 
             // viewMenu
             // 
@@ -183,12 +191,12 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
-            // reservasToolStripMenuItem
+            // clientesToolStripMenuItem
             // 
-            reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
-            reservasToolStripMenuItem.Size = new Size(180, 22);
-            reservasToolStripMenuItem.Text = "Reservas";
-            reservasToolStripMenuItem.Click += reservasToolStripMenuItem_Click;
+            clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            clientesToolStripMenuItem.Size = new Size(180, 22);
+            clientesToolStripMenuItem.Text = "Clientes";
+            clientesToolStripMenuItem.Click += clientesToolStripMenuItem_Click;
             // 
             // Menu
             // 
@@ -240,6 +248,7 @@
         private ToolStripMenuItem tipoPagoToolStripMenuItem;
         private ToolStripMenuItem serviciosToolStripMenuItem;
         private ToolStripMenuItem reservasToolStripMenuItem;
+        private ToolStripMenuItem clientesToolStripMenuItem;
     }
 }
 
