@@ -1,15 +1,8 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+﻿
+using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Y_YReservas.Data;
 
 namespace Y_YReservas.Forms
@@ -98,8 +91,8 @@ namespace Y_YReservas.Forms
             txtCantidadResivida.Clear();
             txtTotal.Clear();
             txtCambio.Clear();
-            lstPagos.DataSource = null;
-            ltsDetalle.DataSource = null;
+            lstPagos.Rows.Clear();
+            ltsDetalle.Rows.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -177,7 +170,7 @@ namespace Y_YReservas.Forms
                     }
                     break;
 
-                case "Imprimir":
+                case "&Imprimir":
                     if (Funprint() == true)
                     {
                         //CmdBoton1.Text = "&Salvar";
@@ -209,18 +202,62 @@ namespace Y_YReservas.Forms
             throw new NotImplementedException();
         }
 
+
+        public bool GenerarReportePDF()
+        {
+            // Define las rutas. Es mejor obtenerlas de un archivo de configuración.
+            string rutaReporte = @"C:\Reportes\MiReporte.rpt";
+            string rutaSalidaPdf = @"C:\Reportes\Salida.pdf";
+
+            // Verifica que el archivo de reporte exista antes de continuar.
+            if (!System.IO.File.Exists(rutaReporte))
+            {
+                MessageBox.Show("El archivo de la plantilla del reporte no se encuentra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // El bloque 'using' garantiza que el objeto 'reporte' se destruya correctamente.
+            using (ReportDocument reporte = new ReportDocument())
+            {
+                try
+                {
+                    // Carga el reporte
+                    reporte.Load(rutaReporte);
+
+                    // Aquí puedes conectar a la base de datos si es necesario
+                    // reporte.SetDatabaseLogon("usuario", "contraseña", "servidor", "baseDeDatos");
+
+                    // Pasar parámetros si el reporte los requiere
+                    // reporte.SetParameterValue("Parametro1", "valorDeseado");
+                    // reporte.SetParameterValue("FechaInicio", new DateTime(2025, 1, 1));
+
+                    // Exporta el reporte a PDF
+                    reporte.ExportToDisk(ExportFormatType.PortableDocFormat, rutaSalidaPdf);
+
+                    MessageBox.Show("El reporte PDF se ha generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y muéstralo al usuario.
+                    MessageBox.Show($"Ocurrió un error al generar el reporte: {ex.Message}", "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    // Código que se ejecuta siempre, como reactivar un botón o limpiar la UI.
+                    CmdBoton2.Enabled = true;
+                    Limpiar(); // Tu método de limpieza.
+                }
+            }
+        }
+
         private bool Funprint()
         {
             CmdBoton2.Enabled = true;
-            ReportDocument reporte = new ReportDocument();
-            reporte.Load(@"C:\Reportes\MiReporte.rpt");
-
-            // Pasar parámetros si corresponde
-            // reporte.SetParameterValue("Parametro1", valor);
-
-            reporte.ExportToDisk(ExportFormatType.PortableDocFormat, @"C:\Reportes\Salida.pdf");
-            Limpiar();
-            return true;
+            GenerarReportePDF();
+             return true;
         }
 
         private bool FunCancel()
