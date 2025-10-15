@@ -205,33 +205,26 @@ namespace Y_YReservas.Forms
 
         public bool GenerarReportePDF()
         {
-            // Define las rutas. Es mejor obtenerlas de un archivo de configuración.
+           
             string rutaReporte = @"C:\Reportes\MiReporte.rpt";
             string rutaSalidaPdf = @"C:\Reportes\Salida.pdf";
 
-            // Verifica que el archivo de reporte exista antes de continuar.
+            
             if (!System.IO.File.Exists(rutaReporte))
             {
                 MessageBox.Show("El archivo de la plantilla del reporte no se encuentra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            // El bloque 'using' garantiza que el objeto 'reporte' se destruya correctamente.
+           
             using (ReportDocument reporte = new ReportDocument())
             {
                 try
                 {
-                    // Carga el reporte
+                    
                     reporte.Load(rutaReporte);
 
-                    // Aquí puedes conectar a la base de datos si es necesario
-                    // reporte.SetDatabaseLogon("usuario", "contraseña", "servidor", "baseDeDatos");
-
-                    // Pasar parámetros si el reporte los requiere
-                    // reporte.SetParameterValue("Parametro1", "valorDeseado");
-                    // reporte.SetParameterValue("FechaInicio", new DateTime(2025, 1, 1));
-
-                    // Exporta el reporte a PDF
+                   
                     reporte.ExportToDisk(ExportFormatType.PortableDocFormat, rutaSalidaPdf);
 
                     MessageBox.Show("El reporte PDF se ha generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -240,15 +233,15 @@ namespace Y_YReservas.Forms
                 }
                 catch (Exception ex)
                 {
-                    // Captura cualquier error y muéstralo al usuario.
+                    
                     MessageBox.Show($"Ocurrió un error al generar el reporte: {ex.Message}", "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 finally
                 {
-                    // Código que se ejecuta siempre, como reactivar un botón o limpiar la UI.
+                    
                     CmdBoton2.Enabled = true;
-                    Limpiar(); // Tu método de limpieza.
+                    Limpiar(); 
                 }
             }
         }
@@ -256,7 +249,9 @@ namespace Y_YReservas.Forms
         private bool Funprint()
         {
             CmdBoton2.Enabled = true;
-            GenerarReportePDF();
+            // GenerarReportePDF();
+
+             Limpiar();
              return true;
         }
 

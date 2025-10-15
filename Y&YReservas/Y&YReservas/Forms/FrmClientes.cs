@@ -134,7 +134,7 @@ namespace Y_YReservas.Forms
         {
             if (txtBusqueda.Text != "")
             {
-                rsCliente.DefaultView.RowFilter = $"Tipo_servicio LIKE '%{txtBusqueda.Text}%'";
+                rsCliente.DefaultView.RowFilter = $"Cliente_Nombre LIKE '%{txtBusqueda.Text}%'";
 
             }
         }
@@ -312,7 +312,7 @@ namespace Y_YReservas.Forms
 
         private bool FunAddNew()
         {
-            txtCodigo.Tag = 0;
+           txtNommbre.Tag = 0;
             LimpiarCampos();
             txtCodigo.Focus();
             return true;
